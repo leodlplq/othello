@@ -1,0 +1,28 @@
+# makefile de base correspondant a l'exercice 2, TP8
+
+
+mon_executable: code.o fonctions.o
+		g++ -o mon_executable code.o fonctions.o
+
+code.o: code.cpp fonctions.h
+	g++ -o code.o -c code.cpp -Wall 
+
+fonctions.o: fonctions.cpp fonctions.h
+	     g++ -o fonctions.o -c fonctions.cpp -Wall 
+
+
+
+# On veut produire un programme executable "mon_executable".
+# Pour ça, il faut s'assurer que les fichiers objet code.o et fonctions.o
+# existent et sont a jour.
+
+# code.o ne depend que de code.c et fonctions.h, tous les deux
+# etant fichiers source, on ne va plus les modifier.
+# Si code.o existe deja et a été modifié plus tard que code.c et
+# fonctions.h, alors c'est déjà à jour et on ne va rien faire.
+# Sinon, on actualise en appelant g++ -o fonctions.o ...
+
+# On vérifie egalement pour fonctions.o
+
+# Finalement, on est sur d'avoir code.o et fonctions.o a jour et on peut
+# alors verifier que mon_executable est à jour. Sinon, on appelle g++...
