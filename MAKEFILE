@@ -1,14 +1,14 @@
 # makefile de base correspondant a l'exercice 2, TP8
 
 
-game: main.o grille.o
-	g++ -o game main.o grille.o
+game: main.o
+	g++ -o game main.o -Wall
 
 main.o: main.cpp
 	g++ -o main.o -c main.cpp -Wall 
 
-grille.o: grille.cpp
-    g++ -o grille.o -c grille.cpp -Wall 
+# grille.o: grille.cpp
+#     g++ -o grille.o -c grille.cpp -Wall
 
 
 
