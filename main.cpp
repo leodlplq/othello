@@ -1,7 +1,7 @@
-#include <iostream>
-using namespace std;
+#include "grille.h"
 
-char grid[9][9] = {
+const int rows = 9, cols = 9;
+char grid[rows][cols] = {
     {' ','A','B','C','D','E','F','G','H'},
     {'1',' ',' ',' ',' ',' ',' ',' ',' '},
     {'2',' ',' ',' ',' ',' ',' ',' ',' '},
@@ -15,7 +15,7 @@ char grid[9][9] = {
 
 int main(){
 
+    renderGrid((char *)grid, rows, cols);
 
-    cout << "salut" << endl;
     return 0;
 }
