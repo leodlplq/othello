@@ -14,8 +14,7 @@ char grid[rows][cols] = {
 };
 
 int main(){
-
+    // renderGrid(*grid, rows, cols);
     renderGrid((char *)grid, rows, cols);
-
     return 0;
 }
