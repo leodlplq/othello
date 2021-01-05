@@ -1,14 +1,14 @@
 # makefile de base correspondant a l'exercice 2, TP8
 
 
-mon_executable: code.o fonctions.o
-		g++ -o mon_executable code.o fonctions.o
+game: main.o grille.o
+	g++ -o game main.o grille.o
 
-code.o: code.cpp fonctions.h
-	g++ -o code.o -c code.cpp -Wall 
+main.o: main.cpp
+	g++ -o main.o -c main.cpp -Wall 
 
-fonctions.o: fonctions.cpp fonctions.h
-	     g++ -o fonctions.o -c fonctions.cpp -Wall 
+grille.o: grille.cpp
+    g++ -o grille.o -c grille.cpp -Wall 
 
 
 
