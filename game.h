@@ -17,6 +17,7 @@ struct Jeton{
 void addCoordonate(Jeton **jeton, int coordonate[2], char color);
 Jeton *find_last(Jeton *jeton);
 void afficheJeton(Jeton jeton);
+void initAllJeton(Jeton *AllJeton);
 
 //ABOUT THE PLAYER
 struct Joueur{

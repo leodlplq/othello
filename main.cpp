@@ -16,6 +16,10 @@ char grid[rows][cols] = {
 
 int main(){
     Joueur joueur1, joueur2;
+    Jeton *AllJeton = new Jeton;
+
+    
+    
 
     createPlayer(&joueur1 ,1);
     createPlayer(&joueur2, 2);
@@ -23,8 +27,10 @@ int main(){
     cout << joueur1.name <<endl;
     cout << joueur2.name << endl;
 
-    afficheJeton(joueur1.jetonJoueur);
-    afficheJeton(joueur2.jetonJoueur);
+    initAllJeton(AllJeton);
+
+    afficheJeton(*AllJeton);
+    
     
 
 
