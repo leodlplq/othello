@@ -18,22 +18,49 @@ int main(){
     Joueur joueur1, joueur2;
     Jeton *AllJeton = new Jeton;
 
+    //bool gamePlaying = true; //defini si le jeu est toujours en cours ou non. 
     
     
 
     createPlayer(&joueur1 ,1);
     createPlayer(&joueur2, 2);
-
-    cout << joueur1.name <<endl;
-    cout << joueur2.name << endl;
-
     initAllJeton(AllJeton);
+    int nbJetons1 = countJeton(&joueur1.jetonJoueur);
+    int nbJetons2 = countJeton(&joueur2.jetonJoueur);
+    cout << joueur1.name << " a : " << nbJetons1 <<endl;
+    cout << joueur2.name << " a : " << nbJetons2 << endl;
+
+    
 
     afficheJeton(*AllJeton);
+    renderGrid(grid, rows, cols);
+
+    int *coordGet = demandeUnePosition();
+    poseUnJeton(coordGet, grid, &joueur1);
+    renderGrid(grid, rows, cols);
+    delete coordGet;
+
+    int *coordGet2 = demandeUnePosition();
+    poseUnJeton(coordGet2, grid, &joueur2);
+    renderGrid(grid, rows, cols);
+    delete coordGet2;
+
+    int *coordGet3 = demandeUnePosition();
+    poseUnJeton(coordGet3, grid, &joueur1);
+    renderGrid(grid, rows, cols);
+    delete coordGet3;
+
+    
+    
     
     
 
 
-    renderGrid((char *)grid, rows, cols);
+    
+    
+    
+
+
+    
     return 0;
 }

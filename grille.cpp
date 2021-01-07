@@ -1,12 +1,12 @@
 //c++ file to create the grid.
-#include "grille.h"
+#include "game.h"
 
-void renderGrid(char *grid, int m, int n){
+void renderGrid(char grid[][9], int m, int n){
 
     for(int i=0; i < m;i++){
             
             for(int j=0; j < n;j++){
-                cout <<" "<<*((grid+i*n) + j) ;
+                cout <<" "<< grid[i][j] ;
                 if(i == 0){
                     cout << "  ";
                 }

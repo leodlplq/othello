@@ -8,6 +8,7 @@ void createPlayer(Joueur *joueur, int n){
     int nbJetons = 2;  
 
     if(n == 1){
+        joueur->color = 'x';
         int array[2] = {4,4};
         int array2[2] = {5,5};
         jetonJoueur->color = 'x';
@@ -17,6 +18,7 @@ void createPlayer(Joueur *joueur, int n){
 
         addCoordonate(&jetonJoueur, array2, 'x');
     }else{
+        joueur->color = 'o';
         int array[2] = {4,5};
         int array2[2] = {5,4};
         jetonJoueur->color = 'o';

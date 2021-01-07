@@ -49,3 +49,14 @@ void initAllJeton(Jeton *AllJeton){
     addCoordonate(&AllJeton, array2, 'o');
     addCoordonate(&AllJeton, array3, 'o');
 }
+
+int countJeton(Jeton *jeton){
+    int nbJetons = 0;
+    while(jeton != NULL){
+        cout << "1 jeton en plus coord : " << jeton->coordonate[0] << ":" << jeton->coordonate[1] << endl;
+        nbJetons++;
+        jeton = jeton->next;
+    }
+
+    return nbJetons;
+}
