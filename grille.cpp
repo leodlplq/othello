@@ -1,22 +1,27 @@
 //c++ file to create the grid.
 #include "game.h"
 
-void renderGrid(char grid[][9], int m, int n){
-
+void renderGrid(Jeu *jeu, int m, int n){
+    cout << "   " << "  A   B   C   D   E   F   G   H  " << endl;
+    cout << "   " << "+---+---+---+---+---+---+---+---+" << endl;
     for(int i=0; i < m;i++){
-            
+            cout <<" "<< i+1 << " |";
             for(int j=0; j < n;j++){
-                cout <<" "<< grid[i][j] ;
-                if(i == 0){
+                
+                if(jeu->grille[i][j] != NULL){
+                    cout <<" "<< jeu->grille[i][j]->color;
+                    
+                } else {
                     cout << "  ";
                 }
-                else{
-                    cout << " |";
-                }
+                
+                
+                cout << " |";
+                
             }  
 
             cout << endl;
             cout << "   " << "+---+---+---+---+---+---+---+---+" << endl;
-        }
+    }
 
 }

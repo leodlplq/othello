@@ -1,30 +1,23 @@
 #include "game.h"
 
-const int rows = 9, cols = 9;
-char grid[rows][cols] = {
-    {' ','A','B','C','D','E','F','G','H'},
-    {'1',' ',' ',' ',' ',' ',' ',' ',' '},
-    {'2',' ',' ',' ',' ',' ',' ',' ',' '},
-    {'3',' ',' ',' ',' ',' ',' ',' ',' '},
-    {'4',' ',' ',' ','x','o',' ',' ',' '},
-    {'5',' ',' ',' ','o','x',' ',' ',' '},
-    {'6',' ',' ',' ',' ',' ',' ',' ',' '},
-    {'7',' ',' ',' ',' ',' ',' ',' ',' '},
-    {'8',' ',' ',' ',' ',' ',' ',' ',' '}   
-};
+const int rows = 8, cols = 8;
+
 
 
 int main(){
     Joueur joueur1, joueur2;
-    Jeton *AllJeton = new Jeton;
+    Jeu *jeu = new Jeu;
+    
 
     //bool gamePlaying = true; //defini si le jeu est toujours en cours ou non. 
     
     
 
     createPlayer(&joueur1 ,1);
+    jeu->joueur1 = joueur1;
     createPlayer(&joueur2, 2);
-    initAllJeton(AllJeton);
+    jeu->joueur2 = joueur2;
+    
     int nbJetons1 = countJeton(&joueur1.jetonJoueur);
     int nbJetons2 = countJeton(&joueur2.jetonJoueur);
     cout << joueur1.name << " a : " << nbJetons1 <<endl;
@@ -32,23 +25,24 @@ int main(){
 
     
 
-    afficheJeton(*AllJeton);
-    renderGrid(grid, rows, cols);
+    
+    renderGrid(jeu, rows, cols);
 
-    int *coordGet = demandeUnePosition();
-    poseUnJeton(coordGet, grid, &joueur1);
-    renderGrid(grid, rows, cols);
-    delete coordGet;
+    // int *coordGet = demandeUnePosition();
+    // poseUnJeton(coordGet, grid, &joueur1);
+    // renderGrid(grid, rows, cols);
+    // delete coordGet;
 
-    int *coordGet2 = demandeUnePosition();
-    poseUnJeton(coordGet2, grid, &joueur2);
-    renderGrid(grid, rows, cols);
-    delete coordGet2;
+    // int *coordGet2 = demandeUnePosition();
+    // poseUnJeton(coordGet2, grid, &joueur2);
+    // renderGrid(grid, rows, cols);
+    // delete coordGet2;
 
-    int *coordGet3 = demandeUnePosition();
-    poseUnJeton(coordGet3, grid, &joueur1);
-    renderGrid(grid, rows, cols);
-    delete coordGet3;
+    // int *coordGet3 = demandeUnePosition();
+    // poseUnJeton(coordGet3, grid, &joueur1);
+    // renderGrid(grid, rows, cols);
+    // delete coordGet3;
+    delete jeu;
 
     
     

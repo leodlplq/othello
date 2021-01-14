@@ -35,21 +35,6 @@ void afficheJeton(Jeton jeton){
 }
 
 
-void initAllJeton(Jeton *AllJeton){
-    int array[2] = {5,5};
-    int array2[2] = {4,5};
-    int array3[2] = {5,4};
-
-    AllJeton->color = 'x';
-    AllJeton->coordonate[0] = 4;
-    AllJeton->coordonate[1] = 4;
-    AllJeton->next = NULL;
-
-    addCoordonate(&AllJeton, array, 'x');
-    addCoordonate(&AllJeton, array2, 'o');
-    addCoordonate(&AllJeton, array3, 'o');
-}
-
 int countJeton(Jeton *jeton){
     int nbJetons = 0;
     while(jeton != NULL){

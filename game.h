@@ -5,8 +5,7 @@
 #include "cstring"
 using namespace std;
 
-//ABOUT THE GRID
-void renderGrid(char grid[][9], int m, int n);
+
 
 //ABOUT THE JETON
 struct Jeton{
@@ -17,7 +16,6 @@ struct Jeton{
 void addCoordonate(Jeton **jeton, int coordonate[2], char color);
 Jeton *find_last(Jeton *jeton);
 void afficheJeton(Jeton jeton);
-void initAllJeton(Jeton *AllJeton);
 int countJeton(Jeton *jeton);
 
 //ABOUT THE PLAYER
@@ -33,11 +31,23 @@ void createPlayer(Joueur *joueur, int n);
 struct Jeu{
     Joueur joueur1;
     Joueur joueur2;
-    Jeton allJeton;
+    Jeton* grille[8][8] = {
+        {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL},
+        {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL},
+        {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL},
+        {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL},
+        {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL},
+        {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL},
+        {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL},
+        {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL}
+    };
 };
 
-void poseUnJeton(int coordonate[2], char grille[][9], Joueur *joueur);
-int *demandeUnePosition();
+//void poseUnJeton(int coordonate[2], char grille[][9], Joueur *joueur);
+//int *demandeUnePosition();
+
+//ABOUT THE GRID
+void renderGrid(Jeu *jeu, int m, int n);
 
 
 
