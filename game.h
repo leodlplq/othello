@@ -10,7 +10,7 @@ using namespace std;
 //ABOUT THE JETON
 struct Jeton{
     char color;
-    int coordonate[2];
+    int *coordonate[2];
     Jeton *next;
 };
 void addCoordonate(Jeton **jeton, int coordonate[2], char color);
@@ -43,8 +43,8 @@ struct Jeu{
     };
 };
 
-//void poseUnJeton(int coordonate[2], char grille[][9], Joueur *joueur);
-//int *demandeUnePosition();
+void poseUnJeton(int coordonate[2], Jeu *jeu, Joueur *joueur);
+int *demandeUnePosition();
 
 //ABOUT THE GRID
 void renderGrid(Jeu *jeu, int m, int n);
