@@ -44,24 +44,24 @@ int *demandeUnePosition(){
 }
 
 void poseUnJetonInit(int coordonate[2], Jeu *jeu, Joueur *joueur){
-    if(jeu->grille[coordonate[0]][coordonate[1]] == NULL){ // ajouter les autres conditions
+    if(jeu->grille[coordonate[0]][coordonate[1]] == NULL){
         //c'est ok la case est libre
         Jeton *jetonToAdd = new Jeton;
         jetonToAdd->color = joueur->color;
-        jetonToAdd->coordonate[2] = coordonate;
+        jetonToAdd->coordonate[0] = coordonate[0];
+        jetonToAdd->coordonate[1] = coordonate[1];
         jeu->grille[coordonate[0]][coordonate[1]] = jetonToAdd;
         
-    } else {
-        //va falloir redemander de jouer.
     }
 } 
 
 void poseUnJeton(int coordonate[2], Jeu *jeu, Joueur *joueur){
-    if(jeu->grille[coordonate[0]][coordonate[1]] == NULL && isItCorrect(coordonate, jeu, joueur)){ // ajouter les autres conditions
+    if(jeu->grille[coordonate[0]][coordonate[1]] == 0 && isItCorrect(coordonate, jeu, joueur)){ // ajouter les autres conditions
         //c'est ok la case est libre
         Jeton *jetonToAdd = new Jeton;
         jetonToAdd->color = joueur->color;
-        jetonToAdd->coordonate[2] = coordonate;
+        jetonToAdd->coordonate[0] = coordonate[0];
+        jetonToAdd->coordonate[1] = coordonate[1];
         jeu->grille[coordonate[0]][coordonate[1]] = jetonToAdd;
         
     } else {
@@ -98,13 +98,16 @@ bool isItCorrect(int coordonate[2], Jeu *jeu, Joueur *joueur){
     }
 
     for( int *ch : toLookTo){
-        
         x = coordonate[0] + ch[0]; 
         y = coordonate[1] + ch[1];
 
-        if(jeu->grille[x][y] != NULL){
-            if(jeu->grille[x][y]->color == toDetect){
-                correct = true;
+        if((x>=0 && x<=7) && (y>=0 && y<=7)){
+            
+
+            if(jeu->grille[x][y] != 0){ // 0 == NULL
+                if(jeu->grille[x][y]->color == toDetect){
+                    correct = true;
+                }
             }
         }
         

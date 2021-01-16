@@ -12,7 +12,7 @@ const int rows = 8, cols = 8;
 //ABOUT THE JETON
 struct Jeton{
     char color;
-    int *coordonate[2];
+    int coordonate[2];
     Jeton *next;
 };
 void addCoordonate(Jeton **jeton, int coordonate[2], char color);
@@ -34,14 +34,14 @@ struct Jeu{
     Joueur joueur1;
     Joueur joueur2;
     Jeton* grille[8][8] = {
-        {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL},
-        {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL},
-        {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL},
-        {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL},
-        {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL},
-        {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL},
-        {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL},
-        {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL}
+        {0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0}
     };
 };
 

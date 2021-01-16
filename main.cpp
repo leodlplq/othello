@@ -57,21 +57,11 @@ int main(){
 
         i++;
         if(i==5){
+            cout << "je mets fin à la partie sry" <<endl;
             running=false;
         }
     }
-    
 
-    int *coordGet2 = demandeUnePosition();
-    poseUnJeton(coordGet2,jeu, &joueur2);
-    renderGrid(jeu, rows, cols);
-    delete coordGet2;
-
-    int *coordGet3 = demandeUnePosition();
-    poseUnJeton(coordGet3, jeu, &joueur1);
-    renderGrid(jeu, rows, cols);
-    delete coordGet3;
-    delete jeu;
 
     
     
