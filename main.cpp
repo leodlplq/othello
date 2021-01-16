@@ -1,12 +1,14 @@
 #include "game.h"
 
-const int rows = 8, cols = 8;
 
 
 
 int main(){
     Joueur joueur1, joueur2;
     Jeu *jeu = new Jeu;
+    bool running = true;
+    int i = 0;
+    bool player = false; //false is player1 & true is player2
     
 
     //bool gamePlaying = true; //defini si le jeu est toujours en cours ou non. 
@@ -27,18 +29,38 @@ int main(){
     int init2[2] = {3,4};
     int init3[2] = {4,3};
     int init4[2] = {4,4};
-    poseUnJeton(init, jeu, &joueur1);
-    poseUnJeton(init4, jeu, &joueur1);
-    poseUnJeton(init2, jeu, &joueur2);
-    poseUnJeton(init3, jeu, &joueur2);
+    poseUnJetonInit(init, jeu, &joueur1);
+    poseUnJetonInit(init4, jeu, &joueur1);
+    poseUnJetonInit(init2, jeu, &joueur2);
+    poseUnJetonInit(init3, jeu, &joueur2);
 
     
     renderGrid(jeu, rows, cols);
 
-    int *coordGet = demandeUnePosition();
-    poseUnJeton(coordGet, jeu, &joueur1);
-    renderGrid(jeu, rows, cols);
-    delete coordGet;
+    while(running){
+        if(player){
+            cout << "\nC'est au tour de "<< joueur2.name <<endl;
+            int *coordGet = demandeUnePosition();
+            poseUnJeton(coordGet, jeu, &joueur2);
+            renderGrid(jeu, rows, cols);
+            delete coordGet;
+            player = !player;
+        } else {
+            cout << "\nC'est au tour de "<< joueur1.name <<endl;
+            int *coordGet = demandeUnePosition();
+            poseUnJeton(coordGet, jeu, &joueur1);
+            renderGrid(jeu, rows, cols);
+            delete coordGet;
+            player = !player;
+        }
+        
+
+        i++;
+        if(i==5){
+            running=false;
+        }
+    }
+    
 
     int *coordGet2 = demandeUnePosition();
     poseUnJeton(coordGet2,jeu, &joueur2);

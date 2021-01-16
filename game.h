@@ -5,6 +5,8 @@
 #include "cstring"
 using namespace std;
 
+const int rows = 8, cols = 8;
+
 
 
 //ABOUT THE JETON
@@ -44,7 +46,9 @@ struct Jeu{
 };
 
 void poseUnJeton(int coordonate[2], Jeu *jeu, Joueur *joueur);
+void poseUnJetonInit(int coordonate[2], Jeu *jeu, Joueur *joueur);
 int *demandeUnePosition();
+bool isItCorrect(int coordonate[2], Jeu *jeu, Joueur *joueur);
 
 //ABOUT THE GRID
 void renderGrid(Jeu *jeu, int m, int n);
