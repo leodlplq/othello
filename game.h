@@ -49,6 +49,8 @@ void poseUnJeton(int coordonate[2], Jeu *jeu, Joueur *joueur);
 void poseUnJetonInit(int coordonate[2], Jeu *jeu, Joueur *joueur);
 int *demandeUnePosition();
 bool isItCorrect(int coordonate[2], Jeu *jeu, Joueur *joueur);
+bool estCoupValide(int coord[2], Jeu* jeu, Joueur* joueur);
+void tourDunJoueur(Jeu* jeu, Joueur* joueur);
 
 //ABOUT THE GRID
 void renderGrid(Jeu *jeu, int m, int n);

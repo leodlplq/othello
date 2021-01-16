@@ -40,17 +40,16 @@ int main(){
     while(running){
         if(player){
             cout << "\nC'est au tour de "<< joueur2.name <<endl;
-            int *coordGet = demandeUnePosition();
-            poseUnJeton(coordGet, jeu, &joueur2);
+            
+            tourDunJoueur(jeu, &joueur2);
             renderGrid(jeu, rows, cols);
-            delete coordGet;
+
+            
             player = !player;
         } else {
             cout << "\nC'est au tour de "<< joueur1.name <<endl;
-            int *coordGet = demandeUnePosition();
-            poseUnJeton(coordGet, jeu, &joueur1);
+            tourDunJoueur(jeu, &joueur1);
             renderGrid(jeu, rows, cols);
-            delete coordGet;
             player = !player;
         }
         

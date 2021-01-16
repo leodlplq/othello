@@ -56,7 +56,7 @@ void poseUnJetonInit(int coordonate[2], Jeu *jeu, Joueur *joueur){
 } 
 
 void poseUnJeton(int coordonate[2], Jeu *jeu, Joueur *joueur){
-    if(jeu->grille[coordonate[0]][coordonate[1]] == 0 && isItCorrect(coordonate, jeu, joueur)){ // ajouter les autres conditions
+    if(jeu->grille[coordonate[0]][coordonate[1]] == 0){ // ajouter les autres conditions
         //c'est ok la case est libre
         Jeton *jetonToAdd = new Jeton;
         jetonToAdd->color = joueur->color;
@@ -64,13 +64,24 @@ void poseUnJeton(int coordonate[2], Jeu *jeu, Joueur *joueur){
         jetonToAdd->coordonate[1] = coordonate[1];
         jeu->grille[coordonate[0]][coordonate[1]] = jetonToAdd;
         
-    } else {
-        cout << "\n\nLe mouvement n'est pas correct, vous devez etre a cote d'un pion adverse." << endl;
-        int *coordGet = demandeUnePosition();
-        poseUnJeton(coordGet, jeu, joueur);
-        delete coordGet;
     }
 }  
+
+bool estCoupValide(int coord[2], Jeu* jeu, Joueur* joueur){
+    return jeu->grille[coord[0]][coord[1]] == 0 && isItCorrect(coord, jeu, joueur);
+}
+
+void tourDunJoueur(Jeu* jeu, Joueur* joueur){
+    int* coords;
+    do{
+        if(coords){
+            delete[] coords;
+        }
+        coords = demandeUnePosition();
+    } while(!estCoupValide(coords, jeu, joueur));
+    poseUnJeton(coords, jeu, joueur);
+    delete[] coords;
+}
 
 //VERIFICATION OF THE PLACEMENT
 
