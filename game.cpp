@@ -3,11 +3,26 @@
 
 
 int *demandeUnePosition(){
+    
     char coord[2];
+    char coordBuffer[100];
+    bool verif = true;
     int *coordInt = new int[2];
 
-    cout << "Ou voulez vous jouer ? exemple d'écriture : A1"<< endl;
-    cin >> coord;
+    
+    do{
+
+        cout << "Ou voulez vous jouer ? exemple d'écriture : A1"<< endl;
+        cin >> coordBuffer;
+        if((unsigned)strlen(coordBuffer) == 2 && (((int)coordBuffer[0] >= 65 && (int)coordBuffer[0]<=71) || ((int)coordBuffer[0] >= 97 && (int)coordBuffer[0] <=104)) && ((int)coordBuffer[1] >= 49 && (int)coordBuffer[1] <= 57)) { 
+                verif = false;
+        }
+            
+    
+    }while(verif);
+
+    memcpy(coord, coordBuffer, 2);
+    
    
     switch(toupper(coord[0])){
         case 'A' :
