@@ -72,7 +72,7 @@ bool estCoupValide(int coord[2], Jeu* jeu, Joueur* joueur){
 }
 
 void tourDunJoueur(Jeu* jeu, Joueur* joueur){
-    int* coords;
+    int* coords = 0;
     do{
         if(coords){
             delete[] coords;
