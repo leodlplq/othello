@@ -79,6 +79,7 @@ void poseUnJeton(int coordonate[2], Jeu *jeu, Joueur *joueurPoseur, Joueur* joue
         jeu->grille[coordonate[0]][coordonate[1]]->color = joueurPoseur->color;        
         joueurPoseur->nbJetons += 1;
         captureJeton(coordonate, jeu, joueurPoseur, joueurPris);
+        cout << "Bravo, " << joueurPoseur->name << " a maintenant " << joueurPoseur->nbJetons << "jetons !\n\n"<<endl;
     
 }  
 
