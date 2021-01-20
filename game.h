@@ -45,15 +45,19 @@ struct Jeu{
     };
 };
 
-void poseUnJeton(int coordonate[2], Jeu *jeu, Joueur *joueur);
+void poseUnJeton(int coordonate[2], Jeu *jeu, Joueur *joueurPoseur, Joueur* joueurPris);
 void poseUnJetonInit(int coordonate[2], Jeu *jeu, Joueur *joueur);
 int *demandeUnePosition();
 bool isItCorrect(int coordonate[2], Jeu *jeu, Joueur *joueur);
 bool estCoupValide(int coord[2], Jeu* jeu, Joueur* joueur);
-void tourDunJoueur(Jeu* jeu, Joueur* joueur);
+void tourDunJoueur(Jeu* jeu, Joueur* joueurPoseur, Joueur* joueurPris);
+
+void captureJeton(int coordonate[2], Jeu *jeu, Joueur *joueurPoseur, Joueur* joueurPris);
+bool detecteCaptureJeton(int coordonate[2], Jeu *jeu, Joueur *joueur);
 
 //ABOUT THE GRID
 void renderGrid(Jeu *jeu, int m, int n);
+void initPlateau(Jeu* jeu);
 
 
 

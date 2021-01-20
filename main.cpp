@@ -13,7 +13,7 @@ int main(){
 
     //bool gamePlaying = true; //defini si le jeu est toujours en cours ou non. 
     
-    
+    initPlateau(jeu);
 
     createPlayer(&joueur1 ,1);
     jeu->joueur1 = joueur1;
@@ -39,23 +39,23 @@ int main(){
 
     while(running){
         if(player){
-            cout << "\nC'est au tour de "<< joueur2.name <<endl;
+            cout << "\nC'est au tour de "<< joueur2.name << ":" << joueur2.color <<endl;
             
-            tourDunJoueur(jeu, &joueur2);
+            tourDunJoueur(jeu, &joueur2, &joueur1);
             renderGrid(jeu, rows, cols);
 
             
             player = !player;
         } else {
-            cout << "\nC'est au tour de "<< joueur1.name <<endl;
-            tourDunJoueur(jeu, &joueur1);
+            cout << "\nC'est au tour de "<< joueur1.name << ":" << joueur1.color <<endl;
+            tourDunJoueur(jeu, &joueur1, &joueur2);
             renderGrid(jeu, rows, cols);
             player = !player;
         }
         
 
         i++;
-        if(i==5){
+        if(i==60){
             cout << "je mets fin à la partie sry" <<endl;
             running=false;
         }
