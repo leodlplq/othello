@@ -45,6 +45,8 @@ struct Jeu{
     };
 };
 
+bool gameFinished(Jeu* jeu, Joueur* joueur1, Joueur* joueur2 );
+
 void poseUnJeton(int coordonate[2], Jeu *jeu, Joueur *joueurPoseur, Joueur* joueurPris);
 void poseUnJetonInit(int coordonate[2], Jeu *jeu, Joueur *joueur);
 int *demandeUnePosition();

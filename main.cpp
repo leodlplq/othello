@@ -55,11 +55,13 @@ int main(){
         
 
         i++;
-        if(i==60){
-            cout << "je mets fin à la partie sry" <<endl;
+        if(gameFinished(jeu, &joueur1, &joueur2 )){
+            cout << "C'est la fin de la partie !" <<endl;
             running=false;
         }
     }
+
+
 
 
     

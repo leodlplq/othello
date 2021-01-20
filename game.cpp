@@ -1,7 +1,17 @@
 #include "game.h"
 #include <cctype>
 
+bool gameFinished(Jeu* jeu, Joueur* joueur1, Joueur* joueur2 ){
+    int totalPoint  = joueur1->nbJetons + joueur2->nbJetons;
+    int finished = false;
 
+    if(totalPoint == 64){
+        finished =  true;
+    }
+
+    return finished;
+
+}
 int *demandeUnePosition(){
     
     char coord[2];
@@ -135,9 +145,6 @@ bool isItCorrect(int coordonate[2], Jeu *jeu, Joueur *joueur){
 
 
 void captureJeton(int coordonate[2], Jeu *jeu, Joueur *joueurPoseur, Joueur* joueurPris){
-
-
-
     char toDetect;
     int toMoveTo[8][2] = {
         {-1,-1},{-1,0},{-1,1},
@@ -151,8 +158,6 @@ void captureJeton(int coordonate[2], Jeu *jeu, Joueur *joueurPoseur, Joueur* jou
         allTakenPion[i][0] = -1;
         allTakenPion[i][1] = -1;
     }
-
-    
     int x,y;
     // int nbPrise = 0;
     int nbPriseTotal = 0;
@@ -172,7 +177,6 @@ void captureJeton(int coordonate[2], Jeu *jeu, Joueur *joueurPoseur, Joueur* jou
             takenPion[i][1] = -1;
         }
         count = 0;
-        
         x = coordonate[0] + ch[0]; 
         y = coordonate[1] + ch[1];
         
@@ -181,79 +185,58 @@ void captureJeton(int coordonate[2], Jeu *jeu, Joueur *joueurPoseur, Joueur* jou
             
             if(jeu->grille[x][y] != 0){
                 while(jeu->grille[x][y]->color == toDetect && ((x>0 && x<7) && (y>0 && y<7))){
-               
-            
-            takenPion[count][0]=x;
-            takenPion[count][1]=y;
-
-            x = x + ch[0]; 
-            y = y + ch[1];
-
-            
-            count +=1;
-
-
-            };
-
+                    takenPion[count][0]=x;
+                    takenPion[count][1]=y;
+                    x = x + ch[0]; 
+                    y = y + ch[1];
+                    count +=1;
+                };
             count = 0;
-
             //normalement x,y sont sur la case d'apres, donc 
             //je verifie si c'est 0/7/ou mon pion afin de valider la prise.
-            if(x<0 || x>7 || y<0 || y>7){
-                //c'est sur les bords du tableau donc x/y n'existe pas dans le tableau.
-                //on valide la prise. pour faire ca, on push dans le allTaken et on push dans le nbPriseTotal.
-                
-                while(takenPion[count][0] != -1 && takenPion[count][1] != -1){
-                    allTakenPion[nbPriseTotal][0] = takenPion[count][0];
-                    allTakenPion[nbPriseTotal][1] = takenPion[count][1];
-                    nbPriseTotal++;
-                    count++;
+                if(x<0 || x>7 || y<0 || y>7){
+                    //c'est sur les bords du tableau donc x/y n'existe pas dans le tableau.
+                    //on valide la prise. pour faire ca, on push dans le allTaken et on push dans le nbPriseTotal.
+                    
+                    while(takenPion[count][0] != -1 && takenPion[count][1] != -1){
+                        allTakenPion[nbPriseTotal][0] = takenPion[count][0];
+                        allTakenPion[nbPriseTotal][1] = takenPion[count][1];
+                        nbPriseTotal++;
+                        count++;
+                    }
+                }else if(jeu->grille[x][y]->color == joueurPoseur->color){
+                    //les jetons sont entre deux de mes jetons, donc ils sont mtn à moi. On peut valider.
+                    while(takenPion[count][0] != -1 && takenPion[count][1] != -1){
+                        allTakenPion[nbPriseTotal][0] = takenPion[count][0];
+                        allTakenPion[nbPriseTotal][1] = takenPion[count][1];
+                        nbPriseTotal++;
+                        count++;
+                    }
                 }
-            }else if(jeu->grille[x][y]->color == joueur->color){
-                //les jetons sont entre deux de mes jetons, donc ils sont mtn à moi. On peut valider.
-                while(takenPion[count][0] != -1 && takenPion[count][1] != -1){
-                    allTakenPion[nbPriseTotal][0] = takenPion[count][0];
-                    allTakenPion[nbPriseTotal][1] = takenPion[count][1];
-                    nbPriseTotal++;
-                    count++;
-                }
-            }
-         
             }
               
-        }
-        
-        
+        }  
     }
-    
-    
     while(allTakenPion[countAll][0] != -1 && allTakenPion[countAll][1]){
-        jeu->grille[allTakenPion[countAll][0]][allTakenPion[countAll][1]]->color = joueur->color;
+        jeu->grille[allTakenPion[countAll][0]][allTakenPion[countAll][1]]->color = joueurPoseur->color;
         countAll++;
     }
-
     joueurPoseur->nbJetons += nbPriseTotal;
     joueurPris->nbJetons -= nbPriseTotal;
 }
 
 bool detecteCaptureJeton(int coordonate[2], Jeu *jeu, Joueur *joueur){
-
-
-
     char toDetect;
     int toMoveTo[8][2] = {
         {-1,-1},{-1,0},{-1,1},
         {0,-1},      {0,1}, 
         {1,-1},{1,0},{1,1} 
     };
-    
     int takenPion[8][2];    
     int x,y;
     // int nbPrise = 0;
     int nbPriseTotal = 0;
     int count;
-    
-
     if(joueur->color == 'x'){
         toDetect = 'o';
     } else {
@@ -267,51 +250,37 @@ bool detecteCaptureJeton(int coordonate[2], Jeu *jeu, Joueur *joueur){
             takenPion[i][1] = -1;
         }
         count = 0;
-        
         x = coordonate[0] + ch[0]; 
         y = coordonate[1] + ch[1];
-      
-        
-
         if((x>=0 && x<=7) && (y>=0 && y<=7)){
             
             if(jeu->grille[x][y] != 0){
                 while(jeu->grille[x][y]->color == toDetect && ((x>0 && x<7) && (y>0 && y<7))){
-               
-            
-            takenPion[count][0]=x;
-            takenPion[count][1]=y;
+                    takenPion[count][0]=x;
+                    takenPion[count][1]=y;
 
-            x = x + ch[0]; 
-            y = y + ch[1];
-
-            
-            count +=1;
-
-
-            };
+                    x = x + ch[0]; 
+                    y = y + ch[1];
+                    count +=1;
+                };
 
             count = 0;
-
             //normalement x,y sont sur la case d'apres, donc 
             //je verifie si c'est 0/7/ou mon pion afin de valider la prise.
-            if(x<0 || x>7 || y<0 || y>7){
-                //c'est sur les bords du tableau donc x/y n'existe pas dans le tableau.
-                //on valide la prise. pour faire ca, on push dans le allTaken et on push dans le nbPriseTotal.
-                
-                while(takenPion[count][0] != -1 && takenPion[count][1] != -1){
-                    
-                    nbPriseTotal++;
-                    count++;
+                if(x<0 || x>7 || y<0 || y>7){
+                    //c'est sur les bords du tableau donc x/y n'existe pas dans le tableau.
+                    //on valide la prise. pour faire ca, on push dans le allTaken et on push dans le nbPriseTotal.
+                    while(takenPion[count][0] != -1 && takenPion[count][1] != -1){
+                        nbPriseTotal++;
+                        count++;
+                    }
+                }else if(jeu->grille[x][y]->color == joueur->color){
+                    //les jetons sont entre deux de mes jetons, donc ils sont mtn à moi. On peut valider.
+                    while(takenPion[count][0] != -1 && takenPion[count][1] != -1){
+                        nbPriseTotal++;
+                        count++;
+                    }
                 }
-            }else if(jeu->grille[x][y]->color == joueur->color){
-                //les jetons sont entre deux de mes jetons, donc ils sont mtn à moi. On peut valider.
-                while(takenPion[count][0] != -1 && takenPion[count][1] != -1){
-                    
-                    nbPriseTotal++;
-                    count++;
-                }
-            }
          
             }
               
