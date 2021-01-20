@@ -12,20 +12,44 @@ bool gameFinished(Jeu* jeu, Joueur* joueur1, Joueur* joueur2 ){
     return finished;
 
 }
-int *demandeUnePosition(){
+int *demandeUnePosition(Jeu* jeu, Joueur* joueur){
     
     char coord[2];
     char coordBuffer[100];
     bool verif = true;
-    int *coordInt = new int[2];
+    int* coordInt = new int[2];
+    int** coordsDispo = 0;
+    int i =0;
 
     
     do{
 
-        cout << "Ou voulez vous jouer ? exemple d'écriture : A1"<< endl;
+        cout << "Ou voulez vous jouer ? exemple d'écriture : A1 (taper !help pour l'assistance.)" << endl;
         cin >> coordBuffer;
-        if((unsigned)strlen(coordBuffer) == 2 && (((int)coordBuffer[0] >= 65 && (int)coordBuffer[0]<=71) || ((int)coordBuffer[0] >= 97 && (int)coordBuffer[0] <=104)) && ((int)coordBuffer[1] >= 49 && (int)coordBuffer[1] <= 57)) { 
+        if(!strcmp(coordBuffer,"!help")){
+            //on affiche les cases possibles
+            cout << "Vous avez demandé de l'aide, voici les cases que vous pouvez jouer : " << endl;
+            coordsDispo = giveCoordDispo(jeu, joueur);
+
+            while(coordsDispo[i][0] != -1 && coordsDispo[i][1] != -1){
+                if(i!=0){
+                    cout << "|";
+                }
+                displayCoord(coordsDispo[i]);
+                
+                i++;
+            }
+            cout << endl;
+
+            for (int i = 0; i < 64; ++i){
+                delete[] coordsDispo[i];  
+            }
+            delete[] coordsDispo;
+
+        } else {
+            if((unsigned)strlen(coordBuffer) == 2 && (((int)coordBuffer[0] >= 65 && (int)coordBuffer[0]<=71) || ((int)coordBuffer[0] >= 97 && (int)coordBuffer[0] <=104)) && ((int)coordBuffer[1] >= 49 && (int)coordBuffer[1] <= 57)) { 
                 verif = false;
+            }
         }
             
     
@@ -93,7 +117,7 @@ void tourDunJoueur(Jeu* jeu, Joueur* joueurPoseur, Joueur* joueurPris){
         if(coords){
             delete[] coords;
         }
-        coords = demandeUnePosition();
+        coords = demandeUnePosition(jeu, joueurPoseur);
     } while(!estCoupValide(coords, jeu, joueurPoseur));
     poseUnJeton(coords, jeu, joueurPoseur, joueurPris);
     delete[] coords;
@@ -295,4 +319,72 @@ bool detecteCaptureJeton(int coordonate[2], Jeu *jeu, Joueur *joueur){
     } else {
         return false;
     }
+}
+
+int ** giveCoordDispo(Jeu* jeu, Joueur* joueur){
+    int** coordInt;
+    int i=0;
+    int coordTesting[2] = {-1,-1};
+
+    coordInt = new int*[64];
+    for(int i=0;i<64;i++){
+        coordInt[i] = new int[2];
+        coordInt[i][0] = -1;
+        coordInt[i][1] = -1;
+    }
+    
+
+
+    for(int j=0; j<8; j++){
+
+        for(int k=0; k<8; k++){
+            coordTesting[0] = j;
+            coordTesting[1] = k;
+            if(estCoupValide(coordTesting, jeu, joueur)){
+                coordInt[i][0] = j;
+                coordInt[i][1] = k;
+                i++;
+            }
+
+        }
+
+    }
+
+    return coordInt;
+}
+
+void displayCoord(int coord[2]){
+    char coordDisplay[2];
+
+    switch(coord[1]){
+        case 0 :
+            coordDisplay[0] = 'A';
+            break;
+        case 1 : 
+            coordDisplay[0] = 'B';
+            break;
+        case 2 : 
+            coordDisplay[0] = 'C';
+            break;
+        case 3 : 
+            coordDisplay[0] = 'D';
+            break;
+        case 4 : 
+            coordDisplay[0] = 'E';
+            break;
+        case 5 : 
+            coordDisplay[0] = 'F';
+            break;
+        case 6 : 
+            coordDisplay[0] = 'G';
+            break;
+        case 7 : 
+            coordDisplay[0] = 'H';
+            break;
+
+    }
+
+    coordDisplay[1] = coord[0] + 49;
+
+    cout << coordDisplay[0]<<coordDisplay[1];
 }

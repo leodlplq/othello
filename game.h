@@ -57,6 +57,9 @@ void tourDunJoueur(Jeu* jeu, Joueur* joueurPoseur, Joueur* joueurPris);
 void captureJeton(int coordonate[2], Jeu *jeu, Joueur *joueurPoseur, Joueur* joueurPris);
 bool detecteCaptureJeton(int coordonate[2], Jeu *jeu, Joueur *joueur);
 
+int ** giveCoordDispo(Jeu* jeu, Joueur* joueur);
+void displayCoord(int coord[2]);
+
 //ABOUT THE GRID
 void renderGrid(Jeu *jeu, int m, int n);
 void initPlateau(Jeu* jeu);

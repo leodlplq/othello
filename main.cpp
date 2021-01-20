@@ -9,6 +9,7 @@ int main(){
     bool running = true;
     int i = 0;
     bool player = false; //false is player1 & true is player2
+    int** coordsDispo = 0;
     
 
     //bool gamePlaying = true; //defini si le jeu est toujours en cours ou non. 
@@ -37,8 +38,16 @@ int main(){
     
     renderGrid(jeu, rows, cols);
 
+    
+
     while(running){
         if(player){
+            coordsDispo = giveCoordDispo(jeu, &joueur2);
+        } else {
+            coordsDispo = giveCoordDispo(jeu, &joueur1);
+        }
+        
+        if(player && coordsDispo[0][0] != -1){
             cout << "\nC'est au tour de "<< joueur2.name << ":" << joueur2.color <<endl;
             
             tourDunJoueur(jeu, &joueur2, &joueur1);
@@ -46,11 +55,15 @@ int main(){
 
             
             player = !player;
-        } else {
+        } else if(!player && coordsDispo[0][0] != -1) {
             cout << "\nC'est au tour de "<< joueur1.name << ":" << joueur1.color <<endl;
             tourDunJoueur(jeu, &joueur1, &joueur2);
             renderGrid(jeu, rows, cols);
             player = !player;
+        } else {
+            //personne peut jouer je crois.
+            cout << "C'est la fin de la partie ! Plus personne ne peut poser de pions" <<endl;
+            running = false;
         }
         
 
@@ -59,6 +72,11 @@ int main(){
             cout << "C'est la fin de la partie !" <<endl;
             running=false;
         }
+
+        for (int i = 0; i < 64; ++i){
+                delete[] coordsDispo[i];  
+        }
+        delete[] coordsDispo;
     }
 
 
