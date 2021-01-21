@@ -18,31 +18,36 @@ int *demandeUnePosition(Jeu* jeu, Joueur* joueur){
     char coordBuffer[100];
     bool verif = true;
     int* coordInt = new int[2];
-    int** coordsDispo = 0;
+    int ** coordsDispo = 0;
+    
     int i =0;
 
     
     do{
-
+        
         cout << "Ou voulez vous jouer ? exemple d'écriture : A1 (taper !help pour l'assistance.)" << endl;
         cin >> coordBuffer;
         if(!strcmp(coordBuffer,"!help")){
+            
             //on affiche les cases possibles
             cout << "Vous avez demandé de l'aide, voici les cases que vous pouvez jouer : " << endl;
             coordsDispo = giveCoordDispo(jeu, joueur);
+            
 
             while(coordsDispo[i][0] != -1 && coordsDispo[i][1] != -1){
                 if(i!=0){
                     cout << "|";
                 }
+                
                 displayCoord(coordsDispo[i]);
                 
                 i++;
             }
             cout << endl;
+            i=0;
 
-            for (int i = 0; i < 64; ++i){
-                delete[] coordsDispo[i];  
+            for (int j = 0; j < 64; j++){
+                delete[] coordsDispo[j];  
             }
             delete[] coordsDispo;
 
@@ -209,7 +214,7 @@ void captureJeton(int coordonate[2], Jeu *jeu, Joueur *joueurPoseur, Joueur* jou
         if((x>=0 && x<=7) && (y>=0 && y<=7)){
             
             if(jeu->grille[x][y] != 0){
-                while(jeu->grille[x][y]->color == toDetect && ((x>0 && x<7) && (y>0 && y<7))){
+                while(((x>=0 && x<=7) && (y>=0 && y<=7)) && jeu->grille[x][y]->color == toDetect){
                     takenPion[count][0]=x;
                     takenPion[count][1]=y;
                     x = x + ch[0]; 
@@ -222,13 +227,15 @@ void captureJeton(int coordonate[2], Jeu *jeu, Joueur *joueurPoseur, Joueur* jou
                 if(x<0 || x>7 || y<0 || y>7){
                     //c'est sur les bords du tableau donc x/y n'existe pas dans le tableau.
                     //on valide la prise. pour faire ca, on push dans le allTaken et on push dans le nbPriseTotal.
-                    
-                    while(takenPion[count][0] != -1 && takenPion[count][1] != -1){
+                    if(jeu->grille[x-ch[0]][y - ch[1]]->color == joueurPoseur->color){
+                        while(takenPion[count][0] != -1 && takenPion[count][1] != -1){
                         allTakenPion[nbPriseTotal][0] = takenPion[count][0];
                         allTakenPion[nbPriseTotal][1] = takenPion[count][1];
                         nbPriseTotal++;
                         count++;
                     }
+                    }
+                    
                 }else if(jeu->grille[x][y]->color == joueurPoseur->color){
                     //les jetons sont entre deux de mes jetons, donc ils sont mtn à moi. On peut valider.
                     while(takenPion[count][0] != -1 && takenPion[count][1] != -1){
@@ -242,7 +249,7 @@ void captureJeton(int coordonate[2], Jeu *jeu, Joueur *joueurPoseur, Joueur* jou
               
         }  
     }
-    while(allTakenPion[countAll][0] != -1 && allTakenPion[countAll][1]){
+    while(allTakenPion[countAll][0] != -1 && allTakenPion[countAll][1] != -1){
         jeu->grille[allTakenPion[countAll][0]][allTakenPion[countAll][1]]->color = joueurPoseur->color;
         countAll++;
     }
@@ -280,7 +287,7 @@ bool detecteCaptureJeton(int coordonate[2], Jeu *jeu, Joueur *joueur){
         if((x>=0 && x<=7) && (y>=0 && y<=7)){
             
             if(jeu->grille[x][y] != 0){
-                while(jeu->grille[x][y]->color == toDetect && ((x>0 && x<7) && (y>0 && y<7))){
+                while(((x>=0 && x<=7) && (y>=0 && y<=7)) && jeu->grille[x][y]->color == toDetect){
                     takenPion[count][0]=x;
                     takenPion[count][1]=y;
 
@@ -295,9 +302,12 @@ bool detecteCaptureJeton(int coordonate[2], Jeu *jeu, Joueur *joueur){
                 if(x<0 || x>7 || y<0 || y>7){
                     //c'est sur les bords du tableau donc x/y n'existe pas dans le tableau.
                     //on valide la prise. pour faire ca, on push dans le allTaken et on push dans le nbPriseTotal.
-                    while(takenPion[count][0] != -1 && takenPion[count][1] != -1){
+                    if(jeu->grille[x-ch[0]][y - ch[1]]->color == joueur->color){
+                        while(takenPion[count][0] != -1 && takenPion[count][1] != -1){
+                        
                         nbPriseTotal++;
                         count++;
+                    }
                     }
                 }else if(jeu->grille[x][y]->color == joueur->color){
                     //les jetons sont entre deux de mes jetons, donc ils sont mtn à moi. On peut valider.
