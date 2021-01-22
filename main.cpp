@@ -9,7 +9,6 @@ int main(){
     Jeu *jeu = new Jeu;
     bool running = true;
     int i = 0;
-    int z, y = 0;
     bool player = false; //false is player1 & true is player2
     int** coordsDispo1 = 0;
     int** coordsDispo2 = 0;
@@ -24,10 +23,7 @@ int main(){
     createPlayer(&joueur2, 2);
     jeu->joueur2 = joueur2;
     
-    int nbJetons1 = countJeton(&joueur1.jetonJoueur);
-    int nbJetons2 = countJeton(&joueur2.jetonJoueur);
-    cout << joueur1.name << " a : " << nbJetons1 <<endl;
-    cout << joueur2.name << " a : " << nbJetons2 << endl;
+    
 
     int init[2] = {3,3};
     int init2[2] = {3,4};
